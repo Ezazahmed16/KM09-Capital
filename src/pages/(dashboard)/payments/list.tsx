@@ -1,0 +1,148 @@
+import {ListView} from "@/components/refine-ui/views/list-view.tsx";
+import {Breadcrumb} from "@/components/refine-ui/layout/breadcrumb.tsx";
+import {Search} from "lucide-react";
+import {Input} from "@/components/ui/input.tsx";
+import {useMemo, useState} from "react";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
+import { AllPaymentOptions} from "@/constants";
+import {CreateButton} from "@/components/refine-ui/buttons/create.tsx";
+import {DataTable} from "@/components/refine-ui/data-table/data-table.tsx";
+import {useTable} from "@refinedev/react-table";
+import {Payments} from "@/types";
+import {ColumnDef} from "@tanstack/react-table";
+import {Badge} from "@/components/ui/badge.tsx";
+
+const PaymentList = () => {
+
+    const [ searchQuery, setSearchQuery ] = useState("");
+    const [ selectPaymentMethods, setSelectPaymentMethods ] = useState("all");
+
+    const paymentFilters = selectPaymentMethods === "all" ? [] : [
+        { field: 'paymentsMethod', operator: "eq" as const, value : selectPaymentMethods },
+    ]
+    const searchFilters = searchQuery ? [
+        { field: 'trxNo', operator: 'contains' as const, value : searchQuery },
+    ] : [];
+
+    const paymentTable = useTable<Payments>({
+        columns: useMemo<ColumnDef<Payments>[]>(() => [
+            {
+                id: "paymentId",
+                accessorKey: "paymentId",
+                size: 80,
+                header: () => <p className='column-title ml-2 '>Payment No</p>,
+                cell: ({ getValue }) => <Badge>{getValue<String>()}</Badge>
+            },
+            {
+                id: "amount",
+                accessorKey: "amount",
+                size: 50,
+                header: () => <p className='column-title ml-2 '>Amount</p>,
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+            },
+            {
+                id: "extraFees",
+                accessorKey: "extraFees",
+                size: 50,
+                header: () => <p className='column-title ml-2 '>Penalty</p>,
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+            },
+            {
+                id: "totalAmount",
+                accessorKey: "totalAmount",
+                size: 50,
+                header: () => <p className='column-title ml-2 '>Total</p>,
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+            },
+            {
+                id: "paymentsMethod",
+                accessorKey: "paymentsMethod",
+                size: 80,
+                header: () => <p className='column-title ml-2 '>Payment Method</p>,
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+            },
+            {
+                id: "trxNo",
+                accessorKey: "trxNo",
+                size: 100,
+                header: () => <p className='column-title ml-2 '>Transaction Number</p>,
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>,
+                filterFn: 'includesString',
+            },
+            {
+                id: "paymentStatus",
+                accessorKey: "paymentStatus",
+                size: 50,
+                header: () => <p className='column-title ml-2 '>Status</p>,
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+            },
+            {
+                id: "createdAt",
+                accessorKey: "createdAt",
+                size: 100,
+                header: () => <p className='column-title ml-2 '>Date</p>,
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+            },
+        ], []),
+        refineCoreProps: {
+            resource: "payments",
+            pagination: { pageSize: 10, mode: "server" },
+            filters: {
+                permanent: [ ...paymentFilters, ...searchFilters ],
+            },
+            sorters: {
+                initial: [
+                    { field: 'id', order: "desc" }
+                ]
+            },
+        }
+    });
+
+    return (
+        <>
+            <ListView>
+                <Breadcrumb />
+                <h1 className="page-title text-xl font-bold">Payments Record</h1>
+                <div className="intro-row">
+                    <p className="text-sm">Quick Access to All Payments Record </p>
+                </div>
+
+                <div className="actions-row">
+                    <div className="search-field">
+                        <Search className='search-icon'/>
+                        <Input
+                            type={'text'}
+                            placeholder={'Search by Transaction Number'}
+                            className={'search-input pl-10 w-full'}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex gap-2 w-full sm:wauto">
+                        <Select
+                            value={selectPaymentMethods}
+                            onValueChange={setSelectPaymentMethods}
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="Filter By Month" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All</SelectItem>
+                                {AllPaymentOptions.map(methods => (
+                                    <SelectItem key={methods.value} value={methods.value} >
+                                        {methods.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+
+                        <CreateButton />
+                    </div>
+                </div>
+
+                <DataTable table={paymentTable} />
+            </ListView>
+        </>
+    )
+}
+export default PaymentList

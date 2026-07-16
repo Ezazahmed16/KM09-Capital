@@ -1,72 +1,72 @@
-import {ListView} from "@/components/refine-ui/views/list-view.tsx";
-import {Breadcrumb} from "@/components/refine-ui/layout/breadcrumb.tsx";
-import {Search} from "lucide-react";
-import {Input} from "@/components/ui/input.tsx";
-import {useMemo, useState} from "react";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
-import { AllPaymentOptions} from "@/constants";
-import {CreateButton} from "@/components/refine-ui/buttons/create.tsx";
-import {DataTable} from "@/components/refine-ui/data-table/data-table.tsx";
-import {useTable} from "@refinedev/react-table";
-import {Payments} from "@/types";
-import {ColumnDef} from "@tanstack/react-table";
-import {Badge} from "@/components/ui/badge.tsx";
+import { ListView } from "@/components/refine-ui/views/list-view.tsx";
+import { Breadcrumb } from "@/components/refine-ui/layout/breadcrumb.tsx";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input.tsx";
+import { useMemo, useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx";
+import { PaymentMethodsOptions } from "@/constants";
+import { CreateButton } from "@/components/refine-ui/buttons/create.tsx";
+import { DataTable } from "@/components/refine-ui/data-table/data-table.tsx";
+import { useTable } from "@refinedev/react-table";
+import { Payments } from "@/types";
+import { ColumnDef } from "@tanstack/react-table";
+import { Badge } from "@/components/ui/badge.tsx";
 
 const PaymentList = () => {
 
-    const [ searchQuery, setSearchQuery ] = useState("");
-    const [ selectPaymentMethods, setSelectPaymentMethods ] = useState("all");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectPaymentMethods, setSelectPaymentMethods] = useState("all");
 
     const paymentFilters = selectPaymentMethods === "all" ? [] : [
-        { field: 'paymentsMethod', operator: "eq" as const, value : selectPaymentMethods },
+        { field: 'paymentsMethod', operator: "eq" as const, value: selectPaymentMethods },
     ]
     const searchFilters = searchQuery ? [
-        { field: 'trxNo', operator: 'contains' as const, value : searchQuery },
+        { field: 'trxNo', operator: 'contains' as const, value: searchQuery },
     ] : [];
 
     const paymentTable = useTable<Payments>({
         columns: useMemo<ColumnDef<Payments>[]>(() => [
             {
                 id: "paymentId",
-                accessorKey: "paymentId",
-                size: 80,
+                accessorKey: "id",
+                size: 150,
                 header: () => <p className='column-title ml-2 '>Payment No</p>,
-                cell: ({ getValue }) => <Badge>{getValue<String>()}</Badge>
+                cell: ({ getValue }) => <Badge>{getValue<string>()}</Badge>
             },
             {
                 id: "amount",
                 accessorKey: "amount",
                 size: 50,
                 header: () => <p className='column-title ml-2 '>Amount</p>,
-                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>()}</span>
             },
             {
                 id: "extraFees",
-                accessorKey: "extraFees",
+                accessorKey: "extraFine",
                 size: 50,
                 header: () => <p className='column-title ml-2 '>Penalty</p>,
-                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>()}</span>
             },
             {
                 id: "totalAmount",
-                accessorKey: "totalAmount",
+                accessorKey: "total",
                 size: 50,
                 header: () => <p className='column-title ml-2 '>Total</p>,
-                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>()}</span>
             },
             {
-                id: "paymentsMethod",
-                accessorKey: "paymentsMethod",
+                id: "paymentMethod",
+                accessorKey: "paymentMethod",
                 size: 80,
                 header: () => <p className='column-title ml-2 '>Payment Method</p>,
-                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>()}</span>
             },
             {
                 id: "trxNo",
-                accessorKey: "trxNo",
+                accessorKey: "transactionNo",
                 size: 100,
                 header: () => <p className='column-title ml-2 '>Transaction Number</p>,
-                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>,
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>()}</span>,
                 filterFn: 'includesString',
             },
             {
@@ -74,21 +74,21 @@ const PaymentList = () => {
                 accessorKey: "paymentStatus",
                 size: 50,
                 header: () => <p className='column-title ml-2 '>Status</p>,
-                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>()}</span>
             },
             {
                 id: "createdAt",
                 accessorKey: "createdAt",
                 size: 100,
                 header: () => <p className='column-title ml-2 '>Date</p>,
-                cell: ({ getValue }) => <span className='text-foreground'>{getValue<String>()}</span>
+                cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>() ? new Date(getValue<string>()).toLocaleDateString() : ""}</span>
             },
         ], []),
         refineCoreProps: {
             resource: "payments",
             pagination: { pageSize: 10, mode: "server" },
             filters: {
-                permanent: [ ...paymentFilters, ...searchFilters ],
+                permanent: [...paymentFilters, ...searchFilters],
             },
             sorters: {
                 initial: [
@@ -109,7 +109,7 @@ const PaymentList = () => {
 
                 <div className="actions-row">
                     <div className="search-field">
-                        <Search className='search-icon'/>
+                        <Search className='search-icon' />
                         <Input
                             type={'text'}
                             placeholder={'Search by Transaction Number'}
@@ -128,7 +128,7 @@ const PaymentList = () => {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="all">All</SelectItem>
-                                {AllPaymentOptions.map(methods => (
+                                {PaymentMethodsOptions.map(methods => (
                                     <SelectItem key={methods.value} value={methods.value} >
                                         {methods.label}
                                     </SelectItem>

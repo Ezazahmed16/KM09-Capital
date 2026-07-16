@@ -14,11 +14,13 @@ import { dataProvider } from "../providers/data.ts";
 import { Layout } from "@/components/refine-ui/layout/layout.tsx";
 
 import Dashboard from "@/pages/(dashboard)/dashboard.tsx";
-import {Banknote, ContactIcon, HomeIcon} from "lucide-react";
+import { Banknote, ContactIcon, HomeIcon } from "lucide-react";
 import MembersList from "@/pages/(dashboard)/members/list.tsx";
 import MembersCreate from "@/pages/(dashboard)/members/create.tsx";
 import PaymentList from "@/pages/(dashboard)/payments/list.tsx";
 import PaymentCreate from "@/pages/(dashboard)/payments/create.tsx";
+
+import.meta.env.VITE_BACKEND_BASE_URL
 
 export default function DashboardApp() {
     return (
@@ -47,10 +49,10 @@ export default function DashboardApp() {
                                 meta: { label: "All Members", icon: <ContactIcon /> },
                             },
                             {
-                                name: "Payments History",
+                                name: "payments",
                                 list: "/dashboard/payments",
                                 create: "/dashboard/payments/create",
-                                meta: { label: "Payments", icon: <Banknote /> },
+                                meta: { label: "Payments History", icon: <Banknote /> },
                             },
                         ]}
                     >
@@ -60,12 +62,12 @@ export default function DashboardApp() {
                                 {/* Matches URL: /dashboard */}
                                 <Route index element={<Dashboard />} />
                                 <Route path="members">
-                                    <Route index element={<MembersList />}/>
-                                    <Route path="create" element={<MembersCreate />}/>
+                                    <Route index element={<MembersList />} />
+                                    <Route path="create" element={<MembersCreate />} />
                                 </Route>
                                 <Route path="payments">
-                                    <Route index element={<PaymentList />}/>
-                                    <Route path="create" element={<PaymentCreate />}/>
+                                    <Route index element={<PaymentList />} />
+                                    <Route path="create" element={<PaymentCreate />} />
                                 </Route>
 
                             </Route>

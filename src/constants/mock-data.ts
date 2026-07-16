@@ -1,6 +1,6 @@
-import {Payments} from "@/types";
+import { Payment } from "@/types";
 
-export const MOCK_PAYMENTS: Payments[] = [
+export const MOCK_PAYMENTS: any[] = [
     {
         paymentId: 1029384756,
         user_id: 101,

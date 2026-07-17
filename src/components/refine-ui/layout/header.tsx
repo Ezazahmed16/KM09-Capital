@@ -14,6 +14,7 @@ import {
   useRefineOptions,
 } from "@refinedev/core";
 import { LogOutIcon } from "lucide-react";
+import { useAuth } from "@/providers/auth-context";
 
 export const Header = () => {
   const { isMobile } = useSidebar();
@@ -119,12 +120,22 @@ function MobileHeader() {
 
 const UserDropdown = () => {
   const { mutate: logout, isPending: isLoggingOut } = useLogout();
+  const { signOut } = useAuth();
 
   const authProvider = useActiveAuthProvider();
 
   if (!authProvider?.getIdentity) {
     return null;
   }
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      logout();
+    } catch (e) {
+      logout();
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -133,9 +144,8 @@ const UserDropdown = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem
-          onClick={() => {
-            logout();
-          }}
+          onClick={handleLogout}
+          className="cursor-pointer"
         >
           <LogOutIcon
             className={cn("text-destructive", "hover:text-destructive")}
@@ -152,3 +162,4 @@ const UserDropdown = () => {
 Header.displayName = "Header";
 MobileHeader.displayName = "MobileHeader";
 DesktopHeader.displayName = "DesktopHeader";
+

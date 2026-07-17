@@ -16,6 +16,7 @@ import {
   Sidebar as ShadcnSidebar,
   SidebarContent as ShadcnSidebarContent,
   SidebarHeader as ShadcnSidebarHeader,
+  SidebarFooter as ShadcnSidebarFooter,
   SidebarRail as ShadcnSidebarRail,
   SidebarTrigger as ShadcnSidebarTrigger,
   useSidebar as useShadcnSidebar,
@@ -25,10 +26,12 @@ import {
   useLink,
   useMenu,
   useRefineOptions,
+  useLogout,
   type TreeMenuItem,
 } from "@refinedev/core";
-import { ChevronRight, ListIcon } from "lucide-react";
+import { ChevronRight, ListIcon, Globe, LogOut } from "lucide-react";
 import React from "react";
+import { useAuth } from "@/providers/auth-context";
 
 export function Sidebar() {
   const { open } = useShadcnSidebar();
@@ -63,9 +66,106 @@ export function Sidebar() {
           />
         ))}
       </ShadcnSidebarContent>
+      <ShadcnSidebarFooter
+        className={cn(
+          "transition-discrete",
+          "duration-200",
+          "flex",
+          "flex-col",
+          "gap-2",
+          "pt-4",
+          "pb-4",
+          "border-r",
+          "border-t",
+          "border-border",
+          "bg-sidebar",
+          {
+            "px-3": open,
+            "px-1": !open,
+          }
+        )}
+      >
+        <SidebarFooterContent />
+      </ShadcnSidebarFooter>
     </ShadcnSidebar>
   );
 }
+
+function SidebarFooterContent() {
+  const { mutate: logout } = useLogout();
+  const { signOut } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      logout();
+    } catch (e) {
+      logout();
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-1.5 w-full">
+      <SidebarFooterButton
+        icon={<Globe className="size-4" />}
+        label="Go to Website"
+        to="/"
+      />
+      <SidebarFooterButton
+        icon={<LogOut className="size-4 text-destructive" />}
+        label="Logout"
+        onClick={handleLogout}
+      />
+    </div>
+  );
+}
+
+function SidebarFooterButton({ 
+  icon, 
+  label, 
+  onClick, 
+  to 
+}: { 
+  icon: React.ReactNode; 
+  label: string; 
+  onClick?: () => void; 
+  to?: string; 
+}) {
+  const { open } = useShadcnSidebar();
+  const Link = useLink();
+
+  const content = (
+    <Button
+      variant="ghost"
+      size="lg"
+      className={cn(
+        "flex w-full items-center justify-start gap-2 py-2 !px-3 text-sm text-foreground hover:bg-accent hover:text-accent-foreground w-full rounded-xl cursor-pointer"
+      )}
+      onClick={onClick}
+    >
+      <div className="w-4 text-muted-foreground flex items-center justify-center">{icon}</div>
+      <span
+        className={cn("tracking-[-0.00875rem] font-normal truncate transition-all duration-200", {
+          "opacity-0 w-0 h-0 hidden": !open,
+          "opacity-100": open,
+        })}
+      >
+        {label}
+      </span>
+    </Button>
+  );
+
+  if (to) {
+    return (
+      <Link to={to} className="w-full">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
+}
+
 
 type MenuItemProps = {
   item: TreeMenuItem;

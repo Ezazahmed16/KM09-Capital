@@ -4,7 +4,7 @@
 export type Role = "SuperAdmin" | "Admin" | "Member";
 export type UserStatus = "Pending" | "Active" | "Inactive" | "Suspended";
 export type PaymentStatus = "Pending" | "Approved" | "Rejected" | "NotFound" | "Rechecked";
-export type PaymentMethod = "bKash" | "Nagad" | "Bank" | "Cash";
+export type PaymentMethod = "Bkash" | "Nagad" | "Bank" | "Cash";
 
 // ==========================================
 // TABLE TYPES
@@ -12,22 +12,24 @@ export type PaymentMethod = "bKash" | "Nagad" | "Bank" | "Cash";
 
 export type User = {
     id: string; // uuid
-    firstName: string;
-    lastName: string | null;
+    name: string;
+    firstName?: string;
+    lastName?: string | null;
     email: string;
     emailVerified: boolean | null;
-    password: string | null;
-    phoneNo: string | null;
-    whatsAppNumber: string | null;
-    img: string | null;
-    imageCldPubId: string | null;
+    password?: string | null;
+    phoneNo?: string | null;
+    whatsAppNumber?: string | null;
+    img?: string | null;
+    image?: string | null;
+    imageCldPubId?: string | null;
     userStatus: UserStatus;
     role: Role;
-    joiningDate: Date;
-    startingMonth: string; // date mapped to string by default in some pg drivers, or Date
-    address: string | null;
-    location: string | null;
-    note: string | null;
+    joiningDate?: Date;
+    startingMonth?: string; // date mapped to string by default in some pg drivers, or Date
+    address?: string | null;
+    location?: string | null;
+    note?: string | null;
     createdAt: Date;
     updatedAt: Date;
 };

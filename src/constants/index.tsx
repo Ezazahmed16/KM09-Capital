@@ -27,7 +27,8 @@ export const ROLE_OPTIONS = [
 export const PaymentMethods = [
     "Cash",
     "Bkash",
-    "Nagad"
+    "Nagad",
+    "Bank"
 ] as const;
 
 export const PaymentMethodsOptions = PaymentMethods.map((payOptions) => ({

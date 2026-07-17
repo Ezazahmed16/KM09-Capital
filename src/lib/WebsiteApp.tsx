@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import TopNavbar from "@/components/Shared/TopNavbar.tsx";
+import Footer from "@/components/Shared/Footer.tsx";
 
 export default function WebsiteApp() {
     return (
@@ -15,6 +16,7 @@ export default function WebsiteApp() {
             </main>
 
             {/* 4. FOOTER */}
+            <Footer />
 
         </div>
     );

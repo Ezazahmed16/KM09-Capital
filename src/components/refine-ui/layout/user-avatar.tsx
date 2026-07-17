@@ -4,12 +4,14 @@ import { cn } from "@/lib/utils";
 import { useGetIdentity } from "@refinedev/core";
 
 type User = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  fullName: string;
+  id: string;
+  name?: string;
+  firstName?: string;
+  lastName?: string;
+  fullName?: string;
   email: string;
   avatar?: string;
+  image?: string;
 };
 
 export function UserAvatar() {
@@ -19,12 +21,14 @@ export function UserAvatar() {
     return <Skeleton className={cn("h-10", "w-10", "rounded-full")} />;
   }
 
-  const { fullName, avatar } = user;
+  const { email } = user;
+  const displayName = user.name || user.fullName || `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || email;
+  const avatarUrl = user.image || user.avatar;
 
   return (
     <Avatar className={cn("h-10", "w-10")}>
-      {avatar && <AvatarImage src={avatar} alt={fullName} />}
-      <AvatarFallback>{getInitials(fullName)}</AvatarFallback>
+      {avatarUrl && <AvatarImage src={avatarUrl} alt={displayName} />}
+      <AvatarFallback>{getInitials(displayName)}</AvatarFallback>
     </Avatar>
   );
 }

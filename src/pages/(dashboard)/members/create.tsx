@@ -1,7 +1,7 @@
 
 const MembersCreate = () => {
     return (
-        <div>Create</div>
+        <div>Create Member</div>
     )
 }
 export default MembersCreate

@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import "./App.css";
+import "@/App.css";
+
 // Layouts
 import WebsiteApp from "@/lib/WebsiteApp.tsx";
 

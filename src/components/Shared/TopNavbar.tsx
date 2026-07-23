@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
     { label: "হোম", path: "/" },
     { label: "আমাদের গল্প", path: "/about" },
+    { label: "সকল সদস্যবৃন্দ", path: "/allmembers" },
     { label: "কার্যক্রম ও নিয়মাবলী", path: "/policies" },
     { label: "যোগাযোগ", path: "/contact" },
 ];

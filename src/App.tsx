@@ -9,6 +9,7 @@ import HomePage from "@/pages/(website)/Home/page.tsx";
 import AboutPage from "@/pages/(website)/About/page.tsx";
 import PoliciesPage from "@/pages/(website)/ServicesTerms/page.tsx";
 import ContactPage from "@/pages/(website)/Contact/page.tsx";
+import AllMembersPage from "@/pages/(website)/allmembers/page.tsx";
 import SingIn from "@/components/Shared/singin";
 import SingUp from "@/components/Shared/singup";
 import PendingApproval from "@/components/Shared/pending-approval";
@@ -32,6 +33,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/allmembers" element={<AllMembersPage />} />
               <Route path="/policies" element={<PoliciesPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<SingIn />} />

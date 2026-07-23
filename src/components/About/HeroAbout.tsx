@@ -35,13 +35,7 @@ const HeroAbout = () => {
 
     return (
         <section
-            className="relative min-h-[95vh] flex flex-col justify-between bg-[#071322] overflow-hidden pt-36 pb-20 md:pb-24"
-            style={{
-                backgroundImage: "url('/AboutBanner.png')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat"
-            }}
+            className="relative min-h-[95vh] flex flex-col justify-between bg-[#071322] bg-none md:bg-[url('/AboutBanner.png')] md:bg-cover md:bg-center md:bg-no-repeat overflow-hidden pt-36 pb-20 md:pb-24"
         >
             {/* Dark gradient & Grid Overlay for high visual contrast and premium feel */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#071322]/90 via-[#071322]/70 to-[#071322] pointer-events-none" />

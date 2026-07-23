@@ -1,5 +1,7 @@
-import { ChevronLeft, ChevronRight, ArrowUpRight, Mail, Phone, Linkedin, Facebook } from "lucide-react";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, ArrowUpRight, Mail, Phone, Facebook } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DEFAULT_MEN_AVATAR } from "@/components/Shared/upload/upload-widget";
 
 export interface TeamMemberSocial {
     type: "email" | "phone" | "facebook";
@@ -20,7 +22,7 @@ const defaultMembers: TeamMember[] = [
         id: "U1",
         name: "ওমর হিশাম জুয়েল",
         batch: "কে এম ০৯ ব্যাচ",
-        role: "Founder | Account Holder|",
+        role: "Founder | Account Holder",
         image: "/Members/U1.jpeg",
         socials: [
             { type: "email", href: "mailto:russell@km09capital.com" },
@@ -30,9 +32,9 @@ const defaultMembers: TeamMember[] = [
     },
     {
         id: "U2",
-        name: "বিল্লাল হোসেন রাতুল ",
+        name: "বিল্লাল হোসেন রাতুল",
         batch: "কে এম ০৯ ব্যাচ",
-        role: "Founder || Account Holder",
+        role: "Founder | Account Holder",
         image: "/Members/U2.jpeg",
         socials: [
             { type: "email", href: "mailto:russell@km09capital.com" },
@@ -42,6 +44,30 @@ const defaultMembers: TeamMember[] = [
     },
     {
         id: "U3",
+        name: "রুম্মান আহম্মেদ",
+        batch: "কে এম ০৯ ব্যাচ",
+        role: "Account Holder",
+        image: "/Members/U6.jpeg",
+        socials: [
+            { type: "email", href: "mailto:russell@km09capital.com" },
+            { type: "phone", href: "tel:+8801700000000" },
+            { type: "facebook", href: "https://facebook.com" },
+        ],
+    },
+    {
+        id: "U4",
+        name: "মুহাম্মাদ রাজু",
+        batch: "কে এম ০৯ ব্যাচ",
+        role: "Account Holder",
+        image: "/Members/U5.jpeg",
+        socials: [
+            { type: "email", href: "mailto:russell@km09capital.com" },
+            { type: "phone", href: "tel:+8801700000000" },
+            { type: "facebook", href: "https://facebook.com" },
+        ],
+    },
+    {
+        id: "U5",
         name: "সাদ্দাম ফরাজি",
         batch: "কে এম ০৯ ব্যাচ",
         role: "supervisor",
@@ -53,7 +79,7 @@ const defaultMembers: TeamMember[] = [
         ],
     },
     {
-        id: "U4",
+        id: "U6",
         name: "শাহজালাল বাবু",
         batch: "কে এম ০৯ ব্যাচ",
         role: "supervisor",
@@ -63,22 +89,16 @@ const defaultMembers: TeamMember[] = [
             { type: "phone", href: "tel:+8801700000000" },
             { type: "facebook", href: "https://facebook.com" },
         ],
-    },
-    {
-        id: "U5",
-        name: "মুহাম্মাদ রাজু",
-        batch: "কে এম ০৯ ব্যাচ",
-        role: "Account Holder",
-        image: "/Members/U5.jpeg",
-        socials: [
-            { type: "email", href: "mailto:russell@km09capital.com" },
-            { type: "phone", href: "tel:+8801700000000" },
-            { type: "facebook", href: "https://facebook.com" },
-        ],
-    },
+    }
 ];
 
 export default function TeamSection() {
+    const [selectedId, setSelectedId] = useState<string | null>(null);
+
+    const handleSelect = (id: string) => {
+        setSelectedId((prev) => (prev === id ? null : id));
+    };
+
     return (
         <section className="py-20 md:py-28 bg-slate-50/30 dark:bg-[#071322]/40 border-t border-slate-100 dark:border-slate-900 transition-colors duration-300">
             <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
@@ -97,7 +117,7 @@ export default function TeamSection() {
                         </p>
                     </div>
 
-                    {/* Navigation Buttons (Slider Style) */}
+                    {/* Navigation Buttons */}
                     <div className="flex items-center gap-4">
                         <button
                             aria-label="Previous"
@@ -117,7 +137,12 @@ export default function TeamSection() {
                 {/* Team Members Grid */}
                 <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
                     {defaultMembers.map((member) => (
-                        <MemberCard key={member.id} member={member} />
+                        <MemberCard
+                            key={member.id}
+                            member={member}
+                            isSelected={selectedId === member.id}
+                            onSelect={() => handleSelect(member.id)}
+                        />
                     ))}
                 </div>
 
@@ -126,17 +151,33 @@ export default function TeamSection() {
     );
 }
 
-function MemberCard({ member }: { member: TeamMember }) {
+function MemberCard({
+    member,
+    isSelected,
+    onSelect,
+}: {
+    member: TeamMember;
+    isSelected: boolean;
+    onSelect: () => void;
+}) {
     return (
-        <div className="group flex flex-col gap-y-4">
-
+        <div
+            onClick={onSelect}
+            className="group flex flex-col gap-y-4 cursor-pointer select-none"
+        >
             {/* Image Box */}
-            <div className="relative overflow-hidden rounded-2xl aspect-[4/5] bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-850/80 shadow-md">
+            <div className="relative overflow-hidden rounded-2xl max-w-[260px] sm:max-w-none mx-auto w-full aspect-[4/5] max-h-[280px] sm:max-h-none bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-850/80 shadow-md">
                 <img
-                    src={member.image}
+                    src={member.image || DEFAULT_MEN_AVATAR}
                     alt={member.name}
-                    className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                    className={cn(
+                        "h-full w-full object-cover transition-all duration-500 group-hover:scale-105",
+                        isSelected ? "grayscale" : "grayscale-0 group-hover:grayscale"
+                    )}
                     loading="lazy"
+                    onError={(e) => {
+                        (e.target as HTMLImageElement).src = DEFAULT_MEN_AVATAR;
+                    }}
                 />
 
                 {/* Hover Slide-up Social Overlay */}
@@ -151,6 +192,7 @@ function MemberCard({ member }: { member: TeamMember }) {
                                 <a
                                     key={sIdx}
                                     href={social.href}
+                                    onClick={(e) => e.stopPropagation()}
                                     className="w-9 h-9 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-[#BA9853] hover:border-[#BA9853]/50 hover:scale-105 transition-all duration-200"
                                     aria-label={`${member.name} ${social.type}`}
                                 >
@@ -186,8 +228,6 @@ function MemberCard({ member }: { member: TeamMember }) {
                     <ArrowUpRight className="size-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                 </button>
             </div>
-
         </div>
     );
 }
-

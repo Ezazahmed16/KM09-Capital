@@ -8,6 +8,7 @@ import { User } from "@/types";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2, Users, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+import SEO from "@/components/Shared/SEO";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -78,7 +79,11 @@ const AllMembersPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-50 dark:bg-[#071322] min-h-screen text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-300">
+    <main className="bg-slate-50 dark:bg-[#071322] min-h-screen text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-300">
+      <SEO
+        title="সকল সদস্যবৃন্দ - নিবন্ধিত সমবায় সদস্য নির্দেশিকা"
+        description="KM09 CAPITAL এর সকল সম্মানিত নিবন্ধিত সদস্যদের তালিকা ও তাদের ভূমিকা নির্দেশিকা।"
+      />
       {/* Top Hero Banner */}
       <HeroAllMembers />
 
@@ -149,7 +154,7 @@ const AllMembersPage: React.FC = () => {
 
       {/* Bottom Banner */}
       <BottomBanner />
-    </div>
+    </main>
   );
 };
 

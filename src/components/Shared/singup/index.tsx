@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Lock, Mail, User, ArrowRight } from "lucide-react";
-import Logo from "../../../../public/Logo.png";
+import Logo from '@/../public/Logo.webp';
 
 export default function SingUp() {
   const [name, setName] = useState("");

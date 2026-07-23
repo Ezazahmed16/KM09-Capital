@@ -10,6 +10,9 @@ import AboutPage from "@/pages/(website)/About/page.tsx";
 import PoliciesPage from "@/pages/(website)/ServicesTerms/page.tsx";
 import ContactPage from "@/pages/(website)/Contact/page.tsx";
 import AllMembersPage from "@/pages/(website)/allmembers/page.tsx";
+import GalleryPage from "@/pages/(website)/gallery/page.tsx";
+import BlogPage from "@/pages/(website)/Blog/page.tsx";
+import BlogDetailsPage from "@/pages/(website)/Blog/details.tsx";
 import SingIn from "@/components/Shared/singin";
 import SingUp from "@/components/Shared/singup";
 import PendingApproval from "@/components/Shared/pending-approval";
@@ -34,6 +37,9 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/allmembers" element={<AllMembersPage />} />
+              <Route path="/gallery" element={<GalleryPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:id" element={<BlogDetailsPage />} />
               <Route path="/policies" element={<PoliciesPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<SingIn />} />

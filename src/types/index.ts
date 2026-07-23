@@ -20,6 +20,7 @@ export type User = {
     password?: string | null;
     phoneNo?: string | null;
     whatsAppNumber?: string | null;
+    whatsappNo?: string | null;
     img?: string | null;
     image?: string | null;
     imageCldPubId?: string | null;

@@ -15,6 +15,7 @@ export const userSchema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters" }).max(255).nullable().optional(),
   phoneNo: z.string().max(20).nullable().optional(),
   whatsAppNumber: z.string().max(20).nullable().optional(),
+  whatsappNo: z.string().max(20).nullable().optional(),
   img: z.string().url().nullable().optional(),
   imageCldPubId: z.string().nullable().optional(),
   userStatus: userStatusSchema.default("Pending"),

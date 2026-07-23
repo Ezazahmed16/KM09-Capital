@@ -17,6 +17,7 @@ import Dashboard from "@/pages/(dashboard)/dashboard.tsx";
 import { Banknote, ContactIcon, HomeIcon, UserIcon, Layers, Image as ImageIcon, Settings, ShieldUser, BookOpen } from "lucide-react";
 import MembersList from "@/pages/(dashboard)/members/list.tsx";
 import MembersCreate from "@/pages/(dashboard)/members/create.tsx";
+import MembersShow from "@/pages/(dashboard)/members/show.tsx";
 import PaymentList from "@/pages/(dashboard)/payments/list.tsx";
 import PaymentCreate from "@/pages/(dashboard)/payments/create.tsx";
 import MyAccount from "@/pages/(dashboard)/myaccount/index.tsx";
@@ -66,6 +67,7 @@ export default function DashboardApp() {
                 name: "Members",
                 list: "/dashboard/members",
                 create: "/dashboard/members/create",
+                show: "/dashboard/members/show/:id",
                 meta: { label: "All Members", icon: <ContactIcon /> },
             },
             {
@@ -140,6 +142,7 @@ export default function DashboardApp() {
                                         <Route path="members">
                                             <Route index element={<MembersList />} />
                                             <Route path="create" element={<MembersCreate />} />
+                                            <Route path="show/:id" element={<MembersShow />} />
                                         </Route>
                                         <Route path="allpayments">
                                             <Route index element={<AllPaymentsList />} />

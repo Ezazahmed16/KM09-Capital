@@ -138,7 +138,7 @@ const AllPaymentsList = () => {
             {
                 id: "actions",
                 size: 60,
-                header: () => <p className='column-title text-center'>View</p>,
+                header: () => <p className='column-title text-center'>Actions</p>,
                 cell: ({ row }) => (
                     <div className="flex justify-center">
                         <Link to={`/dashboard/allpayments/edit/${row.original.id}`}>

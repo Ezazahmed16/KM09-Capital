@@ -54,13 +54,14 @@ const MemberList = () => {
             {
                 id: "memberId",
                 accessorKey: "id",
-                size: 130,
+                size: 100,
                 header: () => <p className='column-title ml-2 '>Member ID</p>,
                 cell: ({ getValue }) => <Badge className="text-xs font-mono">{getValue<string>() ? getValue<string>().substring(0, 8) : "-"}</Badge>
             },
             {
                 id: "name",
                 accessorKey: "name",
+                size: 130,
                 header: () => <p className='column-title ml-2'>Name</p>,
                 cell: ({ row }) => (
                     <div className="flex items-center gap-2.5 ml-2">

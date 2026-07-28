@@ -3,7 +3,7 @@ import { useAuth } from "@/providers/auth-context";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
-import Logo from "@/../public/Logo.webp";
+import Logo from "@/../public/Logo.png";
 
 export default function PendingApproval() {
   const { signOut, user } = useAuth();

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Facebook, Instagram, Mail, MessageCircle, ChevronRight } from "lucide-react";
-import Logo from '@/../public/Logo.webp';
+import Logo from '@/../public/Logo-w.png';
 
 export default function Footer() {
     const pageLinks = [

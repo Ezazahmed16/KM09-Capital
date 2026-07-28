@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, LogOut, LayoutDashboard, LogIn, UserPlus } from "lucide-react";
-import Logo from '@/../public/Logo.webp';
+import Logo from '@/../public/Logo.png';
 import { ThemeToggle } from "@/components/refine-ui/theme/theme-toggle";
 import { useAuth } from "@/providers/auth-context";
 import { cn } from "@/lib/utils";

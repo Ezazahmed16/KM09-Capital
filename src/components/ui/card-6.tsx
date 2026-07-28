@@ -13,22 +13,41 @@ import { Mail, MapPin, FileText, UserCheck } from "lucide-react";
 import { DEFAULT_MEN_AVATAR } from "@/components/Shared/upload/upload-widget";
 import { User } from "@/types";
 
+import { cn } from "@/lib/utils";
+
 export interface MemberCardProps {
   member: User;
   onContactClick?: (member: User) => void;
+  className?: string;
+  imageClassName?: string;
 }
 
-const Card6: React.FC<MemberCardProps> = ({ member, onContactClick }) => {
+const Card6: React.FC<MemberCardProps> = ({
+  member,
+  onContactClick,
+  className,
+  imageClassName,
+}) => {
   const imageSrc = member.image || member.img || DEFAULT_MEN_AVATAR;
 
   return (
-    <Card className="border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-[#0b1e33]/70 shadow-sm hover:shadow-xl dark:shadow-slate-950/40 transition-all duration-500 overflow-hidden py-0 flex flex-col sm:flex-row sm:gap-0 group rounded-2xl">
+    <Card
+      className={cn(
+        "border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-[#0b1e33]/70 shadow-sm hover:shadow-xl dark:shadow-slate-950/40 transition-all duration-500 overflow-hidden py-0 flex flex-col sm:flex-row sm:gap-0 group rounded-2xl",
+        className
+      )}
+    >
       {/* Member Avatar / Media Section */}
-      <CardContent className="grow px-0 relative sm:w-2/5 min-h-[220px] sm:min-h-[250px] bg-slate-100 dark:bg-slate-950/40 overflow-hidden">
+      <CardContent
+        className={cn(
+          "grow px-0 relative sm:w-2/5 min-h-[160px] sm:min-h-full bg-slate-100 dark:bg-slate-950/40 overflow-hidden",
+          imageClassName
+        )}
+      >
         <img
           src={imageSrc}
           alt={member.name || "Member Avatar"}
-          className="size-full object-cover sm:min-h-full sm:rounded-l-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
+          className="h-[200px] sm:h-[300px] w-full  object-cover sm:min-h-full sm:rounded-l-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
           onError={(e) => {
             (e.target as HTMLImageElement).src = DEFAULT_MEN_AVATAR;
           }}

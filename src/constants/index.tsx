@@ -57,7 +57,7 @@ export const CLOUDINARY_UPLOAD_URL = getEnvVar("VITE_CLOUDINARY_UPLOAD_URL");
 export const CLOUDINARY_CLOUD_NAME = getEnvVar("VITE_CLOUDINARY_CLOUD_NAME");
 
 // Self-healing backend URL formatting to ensure it always points to valid API base
-const rawBackendUrl = getEnvVar("VITE_BACKEND_BASE_URL") || (import.meta.env.PROD ? "https://km09-capital-backend.onrender.com/" : "http://localhost:8000/api/");
+const rawBackendUrl = getEnvVar("VITE_BACKEND_BASE_URL") || (import.meta.env.PROD ? "https://api.km09-capital.com/" : "http://localhost:8000/api/");
 export const BACKEND_BASE_URL = rawBackendUrl.endsWith("/api/")
     ? rawBackendUrl
     : (rawBackendUrl.endsWith("/") ? `${rawBackendUrl}api/` : `${rawBackendUrl}/api/`);

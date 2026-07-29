@@ -110,7 +110,7 @@ export default function TeamSection() {
                             আমাদের নেতৃত্ব
                         </span>
                         <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-2">
-                            নেতৃত্ব ও পরিচালনা পর্ষদ
+                            নেতৃত্ব ও পরিচালনা পরিষদ
                         </h2>
                         <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-bold uppercase tracking-wider">
                             Leadership & Governing Board of KM09 CAPITAL

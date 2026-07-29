@@ -41,7 +41,7 @@ const HeroGallery = () => {
 
         {/* Subtitle */}
         <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl font-medium leading-relaxed mb-8">
-          কেএম০৯ ক্যাপিটাল-এর বিশেষ আয়োজন, বাৎসরিক মিলনমেলা, সভা ও পরিচালনা পর্ষদের বিভিন্ন যৌথ উদ্যোগের স্মরনীয় মুহূর্তসমূহ।
+          কেএম০৯ ক্যাপিটাল-এর বিশেষ আয়োজন, বাৎসরিক মিলনমেলা, সভা ও পরিচালনা পরিষদের বিভিন্ন যৌথ উদ্যোগের স্মরনীয় মুহূর্তসমূহ।
         </p>
 
         {/* Separator Accent Line */}

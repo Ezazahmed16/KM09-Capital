@@ -41,10 +41,9 @@ export default function SingUp() {
 
     try {
       await signUp(name, email, password);
-      navigate("/dashboard");
+      window.location.href = "/dashboard";
     } catch (err: any) {
       setError(err.message || "নিবন্ধন করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
-    } finally {
       setSubmitting(false);
     }
   };

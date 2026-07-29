@@ -27,10 +27,9 @@ export default function SingIn() {
 
     try {
       await signIn(email, password);
-      navigate("/dashboard");
+      window.location.href = "/dashboard";
     } catch (err: any) {
       setError(err.message || "Failed to sign in. Please check your email and password.");
-    } finally {
       setSubmitting(false);
     }
   };

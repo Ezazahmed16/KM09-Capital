@@ -66,13 +66,13 @@ const AllPaymentsList = () => {
             {
                 id: "paymentId",
                 accessorKey: "id",
-                size: 130,
+                size: 200,
                 header: () => <p className='column-title ml-2 '>Payment No</p>,
                 cell: ({ getValue }) => <Badge className="text-xs">{getValue<string>()}</Badge>
             },
             {
                 id: "memberName",
-                size: 150,
+                size: 120,
                 header: () => <p className='column-title ml-2 '>Member Name</p>,
                 cell: ({ row }) => {
                     const usr = (row.original as any).user;
@@ -90,14 +90,14 @@ const AllPaymentsList = () => {
                 id: "paymentMethod",
                 accessorKey: "paymentMethod",
                 size: 80,
-                header: () => <p className='column-title ml-2 '>Payment Method</p>,
+                header: () => <p className='column-title ml-2 '>Method</p>,
                 cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>()}</span>
             },
             {
                 id: "trxNo",
                 accessorKey: "transactionNo",
                 size: 120,
-                header: () => <p className='column-title ml-2 '>Transaction Number</p>,
+                header: () => <p className='column-title ml-2 '>TRX. No.</p>,
                 cell: ({ getValue }) => <span className='text-foreground font-mono'>{getValue<string>() || "-"}</span>,
             },
             {
@@ -138,7 +138,7 @@ const AllPaymentsList = () => {
             {
                 id: "actions",
                 size: 60,
-                header: () => <p className='column-title text-center'>View</p>,
+                header: () => <p className='column-title text-center'>Actions</p>,
                 cell: ({ row }) => (
                     <div className="flex justify-center">
                         <Link to={`/dashboard/allpayments/edit/${row.original.id}`}>

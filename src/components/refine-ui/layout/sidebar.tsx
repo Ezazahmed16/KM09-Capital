@@ -37,6 +37,10 @@ export function Sidebar() {
   const { open } = useShadcnSidebar();
   const { menuItems, selectedKey } = useMenu();
 
+  const mainMenuItems = menuItems.filter(
+    (item: TreeMenuItem) => item.name !== "settings" && item.key !== "settings"
+  );
+
   return (
     <ShadcnSidebar collapsible="icon" className={cn("border-none")}>
       <ShadcnSidebarRail />
@@ -58,7 +62,7 @@ export function Sidebar() {
           }
         )}
       >
-        {menuItems.map((item: TreeMenuItem) => (
+        {mainMenuItems.map((item: TreeMenuItem) => (
           <SidebarItem
             key={item.key || item.name}
             item={item}
@@ -85,15 +89,20 @@ export function Sidebar() {
           }
         )}
       >
-        <SidebarFooterContent />
+        <SidebarFooterContent selectedKey={selectedKey} />
       </ShadcnSidebarFooter>
     </ShadcnSidebar>
   );
 }
 
-function SidebarFooterContent() {
+function SidebarFooterContent({ selectedKey }: { selectedKey?: string }) {
   const { mutate: logout } = useLogout();
   const { signOut } = useAuth();
+  const { menuItems } = useMenu();
+
+  const settingsItem = menuItems.find(
+    (item: TreeMenuItem) => item.name === "settings" || item.key === "settings"
+  );
 
   const handleLogout = async () => {
     try {
@@ -106,6 +115,13 @@ function SidebarFooterContent() {
 
   return (
     <div className="flex flex-col gap-1.5 w-full">
+      {settingsItem && (
+        <SidebarItem
+          key={settingsItem.key || settingsItem.name}
+          item={settingsItem}
+          selectedKey={selectedKey}
+        />
+      )}
       <SidebarFooterButton
         icon={<Globe className="size-4" />}
         label="Go to Website"
@@ -120,16 +136,16 @@ function SidebarFooterContent() {
   );
 }
 
-function SidebarFooterButton({ 
-  icon, 
-  label, 
-  onClick, 
-  to 
-}: { 
-  icon: React.ReactNode; 
-  label: string; 
-  onClick?: () => void; 
-  to?: string; 
+function SidebarFooterButton({
+  icon,
+  label,
+  onClick,
+  to
+}: {
+  icon: React.ReactNode;
+  label: string;
+  onClick?: () => void;
+  to?: string;
 }) {
   const { open } = useShadcnSidebar();
   const Link = useLink();

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Facebook, Instagram, Mail, MessageCircle, ChevronRight } from "lucide-react";
-import Logo from '@/../public/Logo.png';
+import Logo from '@/../public/Logo-w.png';
 
 export default function Footer() {
     const pageLinks = [
@@ -20,7 +20,7 @@ export default function Footer() {
         { icon: Facebook, path: "https://facebook.com", label: "Facebook" },
         { icon: Instagram, path: "https://instagram.com", label: "Instagram" },
         { icon: Mail, path: "mailto:info@km09capital.com", label: "Email" },
-        { icon: MessageCircle, path: "https://wa.me/xxxxxx", label: "WhatsApp" },
+        { icon: MessageCircle, path: "https://wa.me/8801329570482", label: "WhatsApp" },
     ];
 
     return (
@@ -28,44 +28,43 @@ export default function Footer() {
             {/* Glowing ambient light */}
             <div className="absolute left-0 bottom-0 w-64 h-64 bg-[#BA9853]/5 rounded-full blur-[80px] pointer-events-none" />
 
-            <div className="mx-auto max-w-7xl px-8 py-16 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16">
-                    
-                    {/* Column 1: Logo, Description & Social Links */}
-                    <div className="md:col-span-6 flex flex-col items-start gap-5">
-                        <Link to="/" className="flex items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+
+                    {/* Column 1: Brand Info */}
+                    <div className="md:col-span-6 flex flex-col gap-5">
+                        <Link to="/" className="inline-block">
                             <img
                                 src={Logo}
-                                alt="KM09 Capital Logo"
-                                className="h-16 w-auto filter dark:invert hover:opacity-90 transition-opacity duration-300"
+                                alt="KM09 CAPITAL Logo"
+                                className="h-12 sm:h-14 w-auto filter dark:invert"
                             />
                         </Link>
-                        
-                        <p className="text-sm leading-relaxed text-slate-400 font-medium max-w-md">
-                            KM09 CAPITAL — সম্মিলিত সঞ্চয় ও শৃঙ্খলার মাধ্যমে আগামী দিনের বিশাল জয়ের পথে। স্বচ্ছতা, দায়বদ্ধতা ও যৌথ উন্নয়নই আমাদের মূলধন।
+                        <p className="text-slate-400 text-sm leading-relaxed max-w-md font-normal">
+                            KM09 CAPITAL একটি বিশ্বস্ত বন্ধ সামাজিক সঞ্চয় উদ্যোগ। আমাদের লক্ষ্য সদস্যদের মূলধন বৃদ্ধি, স্বচ্ছ ব্যবস্থাপনা এবং নিরাপদ আর্থিক ভবিষ্যৎ নিশ্চিত করা।
                         </p>
 
-                        {/* Social Media icons */}
-                        <div className="flex gap-3 mt-2">
-                            {socialLinks.map((social, idx) => {
-                                const IconComponent = social.icon;
+                        {/* Social Links */}
+                        <div className="flex items-center gap-3 pt-2">
+                            {socialLinks.map((item, idx) => {
+                                const Icon = item.icon;
                                 return (
                                     <a
                                         key={idx}
-                                        href={social.path}
+                                        href={item.path}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        aria-label={social.label}
-                                        className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-[#BA9853] hover:border-[#BA9853]/40 hover:scale-105 transition-all duration-300 shadow-md"
+                                        aria-label={item.label}
+                                        className="size-10 rounded-xl bg-slate-900 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-[#BA9853] hover:border-[#BA9853]/50 hover:bg-slate-800/50 transition-all duration-300"
                                     >
-                                        <IconComponent className="size-4.5 stroke-[1.8]" />
+                                        <Icon className="size-4" />
                                     </a>
                                 );
                             })}
                         </div>
                     </div>
 
-                    {/* Column 2: Pages Quicklinks */}
+                    {/* Column 2: Page Links */}
                     <div className="md:col-span-3 flex flex-col gap-4">
                         <h4 className="text-[#BA9853] text-sm font-bold tracking-wider uppercase">
                             পেজসমূহ
@@ -108,13 +107,43 @@ export default function Footer() {
                 </div>
 
                 {/* Subfooter */}
-                <div className="mt-12 pt-8 border-t border-slate-800/40 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400 font-medium">
-                    <span className="text-center md:text-left">
-                        © 2026 KM09 CAPITAL. সর্বস্বত্ব সংরক্ষিত।
-                    </span>
-                    <p className="text-center md:text-right max-w-xl leading-relaxed text-slate-500">
-                        আইনি বিজ্ঞপ্তি: এই প্ল্যাটফর্মটি একটি বন্ধ সদস্যভিত্তিক সঞ্চয় উদ্যোগ। কোনো বিনিয়োগ পরামর্শ বা ব্যাংকিং সেবা প্রদান করা হয় না।
-                    </p>
+                <div className="mt-12 pt-8 border-t border-slate-800/40 flex flex-col lg:flex-row items-center justify-between gap-6 text-xs text-slate-400 font-medium">
+                    <div className="flex flex-col gap-1 text-center lg:text-left">
+                        <span>© 2026 KM09 CAPITAL. সর্বস্বত্ব সংরক্ষিত।</span>
+                        <p className="max-w-xl text-[11px] leading-relaxed text-slate-500">
+                            আইনি বিজ্ঞপ্তি: এই প্ল্যাটফর্মটি একটি বন্ধ সদস্যভিত্তিক সঞ্চয় উদ্যোগ। কোনো বিনিয়োগ পরামর্শ বা ব্যাংকিং সেবা প্রদান করা হয় না।
+                        </p>
+                    </div>
+
+                    {/* Developed By Section (Sleek Card View Design) */}
+                    <div className="bg-gradient-to-br from-slate-900/95 via-[#0c1929] to-slate-900 border border-slate-800/90 hover:border-[#BA9853]/40 rounded-2xl p-4 sm:p-5 shadow-xl transition-all duration-300 group hover:shadow-2xl hover:shadow-[#BA9853]/5 shrink-0 w-full sm:w-auto">
+                        <div className="flex flex-col gap-3">
+                            <div className="flex items-center justify-between gap-4 border-b border-slate-800/80 pb-2">
+                                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#BA9853] bg-[#BA9853]/10 px-2 py-0.5 rounded-md border border-[#BA9853]/20">
+                                    Developed By
+                                </span>
+                                <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                            </div>
+
+                            <a
+                                href="https://wa.me/8801329570482"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-between gap-4 group/card"
+                            >
+                                <img
+                                    src="/logo_full.png"
+                                    alt="NexBot BD Logo"
+                                    className="h-10 w-auto object-contain transition-transform group-hover/card:scale-105"
+                                />
+
+                                <div className="flex items-center gap-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-sm">
+                                    <MessageCircle className="size-3.5 fill-emerald-500 text-slate-950" />
+                                    <span className="font-mono text-xs">+8801329570482</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>

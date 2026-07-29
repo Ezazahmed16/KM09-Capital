@@ -1,9 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
-@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -40,7 +37,7 @@
   --sidebar-accent-foreground: oklch(0.3025 0.0671 264.2392);
   --sidebar-border: oklch(0.9288 0.0126 255.5078);
   --sidebar-ring: oklch(0.3025 0.0671 264.2392);
-  --font-sans: "Cinzel", "Playfair Display", serif;
+  --font-sans: "Noto Sans Bengali", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Times New Roman", serif;
   --font-mono: "Courier New", monospace;
   --radius: 0rem;
@@ -58,7 +55,7 @@
   --shadow-lg: 0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 4px 6px -1px hsl(0 0% 0% / 0.10);
   --shadow-xl: 0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 8px 10px -1px hsl(0 0% 0% / 0.10);
   --shadow-2xl: 0px 4px 10px 0px hsl(0 0% 0% / 0.25);
-  --tracking-normal: 0.1em;
+  --tracking-normal: 0em;
   --spacing: 0.25rem;
 }
 
@@ -95,7 +92,7 @@
   --sidebar-accent-foreground: oklch(0.9842 0.0034 247.8575);
   --sidebar-border: oklch(0.2795 0.0368 260.0310);
   --sidebar-ring: oklch(0.6503 0.0727 81.2670);
-  --font-sans: "Cinzel", "Playfair Display", serif;
+  --font-sans: "Noto Sans Bengali", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Times New Roman", serif;
   --font-mono: "Courier New", monospace;
   --radius: 0rem;
@@ -113,6 +110,10 @@
   --shadow-lg: 0px 4px 15px 0px hsl(0 0% 0% / 0.50), 0px 4px 6px -1px hsl(0 0% 0% / 0.50);
   --shadow-xl: 0px 4px 15px 0px hsl(0 0% 0% / 0.50), 0px 8px 10px -1px hsl(0 0% 0% / 0.50);
   --shadow-2xl: 0px 4px 15px 0px hsl(0 0% 0% / 1.25);
+}
+
+@theme {
+  --font-sans: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 @theme inline {
@@ -473,18 +474,13 @@
 
 
 @layer base {
+  html, body, *, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span, a, div {
+    font-family: 'Noto Sans Bengali', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    letter-spacing: normal;
+  }
+
   * {
     @apply border-border outline-ring/50 antialiased;
-    font-family: var(--font-sans);
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;

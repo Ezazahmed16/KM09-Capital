@@ -15,6 +15,7 @@ export const userSchema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters" }).max(255).nullable().optional(),
   phoneNo: z.string().max(20).nullable().optional(),
   whatsAppNumber: z.string().max(20).nullable().optional(),
+  whatsappNo: z.string().max(20).nullable().optional(),
   img: z.string().url().nullable().optional(),
   imageCldPubId: z.string().nullable().optional(),
   userStatus: userStatusSchema.default("Pending"),
@@ -55,4 +56,38 @@ export const systemSettingsSchema = z.object({
   defaultMonthlyFee: z.string().regex(/^\d+(\.\d{1,2})?$/, { message: "Invalid fee format" }),
   fineAmount: z.string().regex(/^\d+(\.\d{1,2})?$/, { message: "Invalid fine format" }),
   fineDeadlineDay: z.number().int().min(1).max(31, { message: "Deadline day must be between 1 and 31" }),
+});
+
+// ==========================================
+// SCHEMAS FOR GALLERY ITEMS
+// ==========================================
+export const gallerySchema = z.object({
+  id: z.string().optional(),
+  title: z.string().min(1, { message: "Title is required" }).max(255),
+  subtitle: z.string().max(255).nullable().optional(),
+  category: z.string().min(1, { message: "Category is required" }),
+  image: z.string().min(1, { message: "Image URL is required" }),
+  imageCldPubId: z.string().nullable().optional(),
+  date: z.string().max(100).nullable().optional(),
+  location: z.string().max(255).nullable().optional(),
+  description: z.string().max(2000).nullable().optional(),
+});
+
+// ==========================================
+// SCHEMAS FOR BLOG ARTICLES
+// ==========================================
+export const blogSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().min(1, { message: "Title is required" }).max(255),
+  subtitle: z.string().max(255).nullable().optional(),
+  category: z.string().min(1, { message: "Category is required" }),
+  readTime: z.string().max(100).nullable().optional(),
+  image: z.string().min(1, { message: "Image URL is required" }),
+  imageCldPubId: z.string().nullable().optional(),
+  date: z.string().max(100).nullable().optional(),
+  description: z.string().max(2000).nullable().optional(),
+  fullContent: z.string().max(10000).nullable().optional(),
+  authorName: z.string().max(255).nullable().optional(),
+  authorRole: z.string().max(255).nullable().optional(),
+  authorAvatar: z.string().nullable().optional(),
 });

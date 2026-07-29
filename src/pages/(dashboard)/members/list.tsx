@@ -1,6 +1,6 @@
 import { ListView } from "@/components/refine-ui/views/list-view.tsx";
 import { Breadcrumb } from "@/components/refine-ui/layout/breadcrumb.tsx";
-import { Search } from "lucide-react";
+import { Search, Eye } from "lucide-react";
 import { Input } from "@/components/ui/input.tsx";
 import { useMemo, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx";
@@ -10,8 +10,11 @@ import { useTable } from "@refinedev/react-table";
 import { User } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge.tsx";
+import { Button } from "@/components/ui/button.tsx";
 import { useUpdate } from "@refinedev/core";
 import { toast } from "sonner";
+import { Link } from "react-router";
+import { DEFAULT_MEN_AVATAR } from "@/components/Shared/upload/upload-widget";
 
 const STATUS_OPTIONS = [
     { value: "Active", label: "Active" },
@@ -51,18 +54,26 @@ const MemberList = () => {
             {
                 id: "memberId",
                 accessorKey: "id",
-                size: 130,
+                size: 100,
                 header: () => <p className='column-title ml-2 '>Member ID</p>,
                 cell: ({ getValue }) => <Badge className="text-xs font-mono">{getValue<string>() ? getValue<string>().substring(0, 8) : "-"}</Badge>
             },
             {
                 id: "name",
                 accessorKey: "name",
+                size: 130,
                 header: () => <p className='column-title ml-2'>Name</p>,
                 cell: ({ row }) => (
-                    <span className='text-foreground font-medium ml-2'>
-                        {row.original.name}
-                    </span>
+                    <div className="flex items-center gap-2.5 ml-2">
+                        <img
+                            src={row.original.image || DEFAULT_MEN_AVATAR}
+                            alt={row.original.name}
+                            className="size-8 rounded-full object-cover border border-slate-200 dark:border-slate-800"
+                        />
+                        <span className='text-foreground font-medium'>
+                            {row.original.name}
+                        </span>
+                    </div>
                 )
             },
             {
@@ -110,6 +121,20 @@ const MemberList = () => {
                 header: () => <p className='column-title ml-2'>Date</p>,
                 cell: ({ getValue }) => <span className='text-foreground'>{getValue<string>() ? new Date(getValue<string>()).toLocaleDateString() : "-"}</span>
             },
+            {
+                id: "actions",
+                size: 80,
+                header: () => <p className='column-title text-center'>Actions</p>,
+                cell: ({ row }) => (
+                    <div className="flex justify-center">
+                        <Link to={`/dashboard/members/show/${row.original.id}`}>
+                            <Badge variant="outline" className="p-1.5 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800">
+                                <Eye className="h-4 w-4 text-slate-500 hover:text-amber-500" />
+                            </Badge>
+                        </Link>
+                    </div>
+                )
+            },
         ], [mutate]),
         refineCoreProps: {
             resource: "Members",
@@ -126,51 +151,49 @@ const MemberList = () => {
     });
 
     return (
-        <>
-            <ListView>
-                <Breadcrumb />
-                <h1 className="page-title text-xl font-bold">All Members</h1>
-                <div className="intro-row">
-                    <p className="text-sm">Quick Access to All Members Record </p>
+        <ListView>
+            <Breadcrumb />
+            <h1 className="page-title text-xl font-bold">All Members</h1>
+            <div className="intro-row">
+                <p className="text-sm">Quick Access to All Members Record </p>
 
-                    <div className="actions-row">
-                        <div className="search-field">
-                            <Search className='search-icon' />
-                            <Input
-                                type={'text'}
-                                placeholder={'Search by Name'}
-                                className={'search-input pl-10 w-full'}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-                        <div className="flex gap-2 w-full sm:wauto">
-                            <Select
-                                value={selectStatus}
-                                onValueChange={setSelectStatus}
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Filter By Status" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="all">All Status</SelectItem>
-                                    {STATUS_OPTIONS.map(status => (
-                                        <SelectItem key={status.value} value={status.value} >
-                                            {status.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-
-                            <CreateButton />
-                        </div>
+                <div className="actions-row">
+                    <div className="search-field">
+                        <Search className='search-icon' />
+                        <Input
+                            type={'text'}
+                            placeholder={'Search by Name'}
+                            className={'search-input pl-10 w-full'}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                     </div>
+                    <div className="flex gap-2 w-full sm:wauto">
+                        <Select
+                            value={selectStatus}
+                            onValueChange={setSelectStatus}
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="Filter By Status" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Status</SelectItem>
+                                {STATUS_OPTIONS.map(status => (
+                                    <SelectItem key={status.value} value={status.value} >
+                                        {status.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
 
+                        <CreateButton />
+                    </div>
                 </div>
 
-                <DataTable table={memberTable} />
-            </ListView>
-        </>
+            </div>
+
+            <DataTable table={memberTable} />
+        </ListView>
     );
 };
 

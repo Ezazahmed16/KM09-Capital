@@ -14,14 +14,22 @@ import { dataProvider } from "../providers/data.ts";
 import { Layout } from "@/components/refine-ui/layout/layout.tsx";
 
 import Dashboard from "@/pages/(dashboard)/dashboard.tsx";
-import { Banknote, ContactIcon, HomeIcon, UserIcon, Layers } from "lucide-react";
+import { Banknote, ContactIcon, HomeIcon, UserIcon, Layers, Image as ImageIcon, Settings, ShieldUser, BookOpen } from "lucide-react";
 import MembersList from "@/pages/(dashboard)/members/list.tsx";
 import MembersCreate from "@/pages/(dashboard)/members/create.tsx";
+import MembersShow from "@/pages/(dashboard)/members/show.tsx";
 import PaymentList from "@/pages/(dashboard)/payments/list.tsx";
 import PaymentCreate from "@/pages/(dashboard)/payments/create.tsx";
 import MyAccount from "@/pages/(dashboard)/myaccount/index.tsx";
 import AllPaymentsList from "@/pages/(dashboard)/allpayments/list.tsx";
 import AllPaymentsEdit from "@/pages/(dashboard)/allpayments/edit.tsx";
+import GalleryList from "@/pages/(dashboard)/settings/gallery/list.tsx";
+import GalleryCreate from "@/pages/(dashboard)/settings/gallery/create.tsx";
+import GalleryEdit from "@/pages/(dashboard)/settings/gallery/edit.tsx";
+import RoleManagementList from "@/pages/(dashboard)/settings/role-management/list.tsx";
+import BlogList from "@/pages/(dashboard)/settings/blog-management/list.tsx";
+import BlogCreate from "@/pages/(dashboard)/settings/blog-management/create.tsx";
+import BlogEdit from "@/pages/(dashboard)/settings/blog-management/edit.tsx";
 import { useAuth } from "@/providers/auth-context";
 
 import.meta.env.VITE_BACKEND_BASE_URL
@@ -32,6 +40,7 @@ import { DashboardGuard, RoleGuard } from "@/components/Shared/route-guards";
 export default function DashboardApp() {
     const { user: currentUser } = useAuth();
     const isAdmin = currentUser?.role === "SuperAdmin" || currentUser?.role === "Admin";
+    const isSuperAdmin = currentUser?.role === "SuperAdmin";
 
     const resources: any[] = [
         {
@@ -58,6 +67,7 @@ export default function DashboardApp() {
                 name: "Members",
                 list: "/dashboard/members",
                 create: "/dashboard/members/create",
+                show: "/dashboard/members/show/:id",
                 meta: { label: "All Members", icon: <ContactIcon /> },
             },
             {
@@ -65,6 +75,34 @@ export default function DashboardApp() {
                 list: "/dashboard/allpayments",
                 edit: "/dashboard/allpayments/edit/:id",
                 meta: { label: "All Payments", icon: <Layers /> },
+            }
+        );
+    }
+
+    if (isSuperAdmin) {
+        resources.push(
+            {
+                name: "settings",
+                meta: { label: "Settings", icon: <Settings /> },
+            },
+            {
+                name: "gallery",
+                list: "/dashboard/settings/gallery",
+                create: "/dashboard/settings/gallery/create",
+                edit: "/dashboard/settings/gallery/edit/:id",
+                meta: { parent: "settings", label: "Gallery", icon: <ImageIcon /> },
+            },
+            {
+                name: "blog-management",
+                list: "/dashboard/settings/blog-management",
+                create: "/dashboard/settings/blog-management/create",
+                edit: "/dashboard/settings/blog-management/edit/:id",
+                meta: { parent: "settings", label: "Blog Management", icon: <BookOpen /> },
+            },
+            {
+                name: "role-management",
+                list: "/dashboard/settings/role-management",
+                meta: { parent: "settings", label: "Role Management", icon: <ShieldUser /> },
             }
         );
     }
@@ -104,10 +142,28 @@ export default function DashboardApp() {
                                         <Route path="members">
                                             <Route index element={<MembersList />} />
                                             <Route path="create" element={<MembersCreate />} />
+                                            <Route path="show/:id" element={<MembersShow />} />
                                         </Route>
                                         <Route path="allpayments">
                                             <Route index element={<AllPaymentsList />} />
                                             <Route path="edit/:id" element={<AllPaymentsEdit />} />
+                                        </Route>
+                                    </Route>
+
+                                    {/* Restrict Settings (Gallery, Blog & Role Management) strictly to SuperAdmin */}
+                                    <Route element={<RoleGuard allowedRoles={["SuperAdmin"]} />}>
+                                        <Route path="settings/gallery">
+                                            <Route index element={<GalleryList />} />
+                                            <Route path="create" element={<GalleryCreate />} />
+                                            <Route path="edit/:id" element={<GalleryEdit />} />
+                                        </Route>
+                                        <Route path="settings/blog-management">
+                                            <Route index element={<BlogList />} />
+                                            <Route path="create" element={<BlogCreate />} />
+                                            <Route path="edit/:id" element={<BlogEdit />} />
+                                        </Route>
+                                        <Route path="settings/role-management">
+                                            <Route index element={<RoleManagementList />} />
                                         </Route>
                                     </Route>
                                 </Route>

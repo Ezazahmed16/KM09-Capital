@@ -20,6 +20,7 @@ export type User = {
     password?: string | null;
     phoneNo?: string | null;
     whatsAppNumber?: string | null;
+    whatsappNo?: string | null;
     img?: string | null;
     image?: string | null;
     imageCldPubId?: string | null;
@@ -103,10 +104,43 @@ export type FinancialDashboard = {
     accountStatus: string;
     totalPendingAmount: string; // numeric(12, 2)
     totalFineAmount: string; // numeric(12, 2)
-    pendingMonthsDetails: unknown; // jsonb - you can replace 'unknown' with a specific interface if you know the JSON structure
+    pendingMonthsDetails: unknown;
     lastCalculatedAt: Date;
     createdAt: Date;
     updatedAt: Date;
+};
+
+export type GalleryItem = {
+    id: string;
+    title: string;
+    subtitle?: string | null;
+    category: string;
+    image: string;
+    imageCldPubId?: string | null;
+    date?: string | null;
+    location?: string | null;
+    description?: string | null;
+    createdAt?: Date;
+    updatedAt?: Date;
+};
+
+export type BlogItem = {
+    id: string;
+    title: string;
+    subtitle?: string | null;
+    category: string;
+    readTime?: string | null;
+    image: string;
+    imageCldPubId?: string | null;
+    date?: string | null;
+    description?: string | null;
+    fullContent?: string | null;
+    keyTakeaways?: string[] | null;
+    authorName?: string | null;
+    authorRole?: string | null;
+    authorAvatar?: string | null;
+    createdAt?: Date;
+    updatedAt?: Date;
 };
 
 // ==========================================

@@ -56,13 +56,11 @@ const getEnvVar = (key: string): string => {
 export const CLOUDINARY_UPLOAD_URL = getEnvVar("VITE_CLOUDINARY_UPLOAD_URL");
 export const CLOUDINARY_CLOUD_NAME = getEnvVar("VITE_CLOUDINARY_CLOUD_NAME");
 
-// Self-healing backend URL formatting to ensure it always ends with /api/
-const rawBackendUrl = getEnvVar("VITE_BACKEND_BASE_URL");
-export const BACKEND_BASE_URL = rawBackendUrl
-    ? (rawBackendUrl.endsWith("/api/")
-        ? rawBackendUrl
-        : (rawBackendUrl.endsWith("/") ? `${rawBackendUrl}api/` : `${rawBackendUrl}/api/`))
-    : "";
+// Self-healing backend URL formatting to ensure it always points to valid API base
+const rawBackendUrl = getEnvVar("VITE_BACKEND_BASE_URL") || (import.meta.env.PROD ? "https://api.km09-capital.com/" : "http://localhost:8000/api/");
+export const BACKEND_BASE_URL = rawBackendUrl.endsWith("/api/")
+    ? rawBackendUrl
+    : (rawBackendUrl.endsWith("/") ? `${rawBackendUrl}api/` : `${rawBackendUrl}/api/`);
 
 
 export const BASE_URL = import.meta.env.VITE_API_URL;
